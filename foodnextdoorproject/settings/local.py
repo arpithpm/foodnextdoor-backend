@@ -1,4 +1,4 @@
-from base import *
+from foodnextdoorproject.settings.base import *
 from dotenv import load_dotenv
 
 # SECURITY WARNING: don't run with debug turned on in production!
