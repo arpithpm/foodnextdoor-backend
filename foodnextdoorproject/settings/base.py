@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'django_extensions',
     'django_rest_passwordreset',
+    'djmoney',
 ]
 
 MIDDLEWARE = [
