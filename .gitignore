@@ -115,3 +115,10 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 .DS_Store
+.idea/foodnextdoor-backend.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.gitignore
+.idea/inspectionProfiles/profiles_settings.xml
+/fnd/

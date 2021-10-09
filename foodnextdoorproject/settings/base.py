@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_rest_passwordreset',
     'djmoney',
+
+    # user apps
+    "food.apps.FoodConfig",
+    "accountsapp.apps.AccountsappConfig",
 ]
 
 MIDDLEWARE = [
