@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from food.models import UserProfile
+from accountsapp.models import Address
 
 
 # class ChefSerializer(serializers.ModelSerializer):
@@ -16,3 +17,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         # exclude=["status"]
         fields = ["phone_number", "gender", "instagram_url", "facebook_url"]
         lookup_field = "auth_user"
+
+
+class UserAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields=["pincode", "state", "city"]

@@ -13,8 +13,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Instance must have an attribute named `owner`.
-        return obj.auth_user.id == request.user.id
+        # Instance must have an attribute named `auth_user`.
+        if hasattr(obj, "auth_user"):
+            return obj.auth_user.id == request.user.id
+        return False
 
 
 class IsSelf(permissions.BasePermission):
