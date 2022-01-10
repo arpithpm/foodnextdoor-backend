@@ -4,6 +4,6 @@ from accountsapp import views
 
 urlpatterns = [
     # path('update-userprofile/<pk>', views.UserProfileUpdateView.as_view()),
-    # path('user-address-create/', views.UserAddressCreateView.as_view()),
-    # path('user-address-get-update/', views.UserAddressGetUpdateDeleteView.as_view()),
+    path('user-address-create/', views.UserAddressListCreateView.as_view()),
+    path('user-address-create/<pk>', views.UserAddressGetUpdateDelete.as_view()),
 ]
