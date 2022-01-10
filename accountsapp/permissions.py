@@ -29,5 +29,5 @@ class IsSelf(permissions.BasePermission):
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
         # Instance must have an attribute named `owner`.
-        if hasattr(obj, "owner"):
-            return obj.owner == request.user
+        if hasattr(obj, "auth_user"):
+            return obj.auth_user == request.user

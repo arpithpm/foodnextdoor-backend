@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 # from food.models import UserProfile
-# from accountsapp.models import Address
+from accountsapp.models import Address
 
 
 # class ChefSerializer(serializers.ModelSerializer):
@@ -19,7 +19,8 @@ from rest_framework import serializers
 #         lookup_field = "auth_user"
 #
 #
-# class UserAddressSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Address
-#         fields=["pincode", "state", "city"]
+class UserAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ["id", "contact_name", "contact_number", "Landmark", "state", "city", "pincode"]
+        # exclude = ('auth_user', )

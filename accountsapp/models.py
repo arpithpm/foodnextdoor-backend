@@ -58,6 +58,9 @@ class Address(ActivatorModel, TimeStampedModel):
     ("Lakshadweep", "Lakshadweep"), ("National Capital Territory of Delhi", "National Capital Territory of Delhi"),
     ("Puducherry", "Puducherry"))
 
+    contact_name = models.CharField(max_length=50, null=False, blank=False)
+    contact_number = models.CharField(max_length=10)
+    Landmark = models.TextField()
     state = models.CharField(choices=state_choices, max_length=255, null=False, blank=False)
     city = models.CharField(choices=cities, null=False, max_length=20)
     pincode = models.CharField(max_length=8, null=False, blank=False)
