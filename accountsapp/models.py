@@ -1,14 +1,3 @@
-from django.contrib.auth.models import User
-from django.db import models
-from indian_cities.dj_city import cities
-
-# Create your models here.
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.urls import reverse
-from django_extensions.db.models import ActivatorModel, TimeStampedModel
-
-
 # @receiver(post_save, sender=User)
 # def create_user_profile(sender, instance, **kwargs):
 #     obj, created = UserProfile.objects.get_or_create(auth_user=instance)
@@ -42,7 +31,18 @@ from django_extensions.db.models import ActivatorModel, TimeStampedModel
 #         return reverse("_detail", kwargs={"pk": self.pk})
 
 
-#
+from django.contrib.auth.models import User
+from django.db import models
+from indian_cities.dj_city import cities
+
+# Create your models here.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.urls import reverse
+from django_extensions.db.models import ActivatorModel, TimeStampedModel
+
+
+
 class Address(ActivatorModel, TimeStampedModel):
     state_choices = (
     ("Andhra Pradesh", "Andhra Pradesh"), ("Arunachal Pradesh ", "Arunachal Pradesh "), ("Assam", "Assam"),
@@ -65,6 +65,15 @@ class Address(ActivatorModel, TimeStampedModel):
     city = models.CharField(choices=cities, null=False, max_length=20)
     pincode = models.CharField(max_length=8, null=False, blank=False)
     auth_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_address")
+    # for now, we are not using this. Wil be used in future.
+    is_primary = models.BooleanField(default=False) # if true, then it is primary address)
+
+    # user may have more than one address but only one primary address. So, we need to make sure that only one address is primary address.
+    def save(self, *args, **kwargs):
+        if self.is_primary:
+            Address.objects.filter(auth_user=self.auth_user).update(is_primary=False)
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return str(self.auth_user) + " " + str(self.pincode)
