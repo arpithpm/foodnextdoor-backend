@@ -1,5 +1,13 @@
 from rest_framework import permissions
 
+class IsChefOrReadOnly(permissions.BasePermission):
+    """Cuisine or FoodCategory can be added by the chef but can be read by anyone"""
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # return obj.chef == request.user
+        return False
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -29,3 +37,5 @@ class IsSelf(permissions.BasePermission):
         # Instance must have an attribute named `owner`.
         if hasattr(obj, "owner"):
             return obj.owner == request.user
+
+

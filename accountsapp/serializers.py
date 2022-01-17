@@ -22,5 +22,5 @@ from accountsapp.models import Address
 class UserAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ["id", "contact_name", "contact_number", "Landmark", "state", "city", "pincode"]
+        fields = ["id", "contact_name", "contact_number", "Landmark", "state", "city", "pincode", "is_primary"]
         # exclude = ('auth_user', )

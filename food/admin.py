@@ -1,5 +1,5 @@
 from django.contrib import admin
-# from food.models import Chef
+from food.models import Cuisine, FoodCategory
 
 # Register your models here.
-# admin.site.register([Chef])
+admin.site.register([Cuisine, FoodCategory])

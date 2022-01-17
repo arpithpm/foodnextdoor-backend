@@ -21,3 +21,21 @@ from django.dispatch import receiver
 #
 #     def get_absolute_url(self):
 #         return reverse("_detail", kwargs={"pk": self.pk})
+
+class Cuisine(ActivatorModel, TimeStampedModel):
+    name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
+    is_active = models.BooleanField(default=False)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cuisine_added_by")
+
+    def __str__(self):
+        return self.name
+
+class FoodCategory(ActivatorModel, TimeStampedModel):
+    name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
+    is_active = models.BooleanField(default=False)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="food_category_added_by")
+
+    def __str__(self):
+        return self.name
+
+
