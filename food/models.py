@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
-# from accountsapp.models import UserProfile
+from accountsapp.models import Address
 
 #
 # class Chef(ActivatorModel, TimeStampedModel):
@@ -22,9 +22,22 @@ from django.dispatch import receiver
 #     def get_absolute_url(self):
 #         return reverse("_detail", kwargs={"pk": self.pk})
 
+class Chef(ActivatorModel, TimeStampedModel):
+    user = models.OneToOneField(User, on_delete=models.PROTECT, related_name="chef_profile")
+    name = models.CharField(max_length=40, null=False, blank=False, default="")
+    imageId = models.TextField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    pickup_location = models.OneToOneField(Address, on_delete=models.PROTECT, related_name="chef_profile")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
+
+
 class Cuisine(ActivatorModel, TimeStampedModel):
     name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
-    is_active = models.BooleanField(default=False)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cuisine_added_by")
 
     def __str__(self):
@@ -32,7 +45,6 @@ class Cuisine(ActivatorModel, TimeStampedModel):
 
 class FoodCategory(ActivatorModel, TimeStampedModel):
     name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
-    is_active = models.BooleanField(default=False)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="food_category_added_by")
 
     def __str__(self):

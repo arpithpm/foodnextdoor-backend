@@ -8,17 +8,6 @@ from accountsapp.permissions import IsSelf, IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
-# # Create your views here.
-# class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
-#     serializer_class = UserProfileSerializer
-#     permission_classes = [IsOwnerOrReadOnly]
-#     # queryset = UserProfile.objects.all()
-#     lookup_field = "auth_user"
-#
-    # def get_object(self):
-    #     return get_object_or_404(UserProfile, auth_user=self.request.user)
-#
-#
 class UserAddressListCreateView(generics.ListCreateAPIView):
     serializer_class = UserAddressSerializer
     permission_classes = [IsAuthenticated]
@@ -40,12 +29,3 @@ class UserAddressGetUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     # def get_object(self):
     #     return get_object_or_404(Address, auth_user=self.request.user)
 
-#
-#
-# class UserAddressGetUpdateDeleteView(generics.RetrieveUpdateAPIView):
-#     serializer_class = UserAddressSerializer
-#     permission_classes = [IsSelf]
-#     lookup_field = "auth_user"
-#
-#     def get_object(self):
-#         return get_object_or_404(Address, auth_user=self.request.user)

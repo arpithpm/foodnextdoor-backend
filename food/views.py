@@ -21,3 +21,9 @@ class FoodCategoryListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(added_by=self.request.user)
+
+
+class ChefListView(generics.ListAPIView):
+    serializer_class = ChefSerializer
+    permission_classes = [permissions.AllowAny]
+    queryset = Chef.objects.active()
