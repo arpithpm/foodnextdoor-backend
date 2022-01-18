@@ -39,6 +39,7 @@ class Chef(ActivatorModel, TimeStampedModel):
 class Cuisine(ActivatorModel, TimeStampedModel):
     name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cuisine_added_by")
+    status = models.IntegerField(default=ActivatorModel.INACTIVE_STATUS, null=False, blank=False, choices=ActivatorModel.STATUS_CHOICES)
 
     def __str__(self):
         return self.name
@@ -46,8 +47,9 @@ class Cuisine(ActivatorModel, TimeStampedModel):
 class FoodCategory(ActivatorModel, TimeStampedModel):
     name = models.CharField(max_length=40, null=False, blank=False, unique=True)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="food_category_added_by")
+    status = models.IntegerField(default=ActivatorModel.INACTIVE_STATUS, null=False, blank=False, choices=ActivatorModel.STATUS_CHOICES)
 
     def __str__(self):
-        return self.name + " _ "
+        return self.name
 
 
