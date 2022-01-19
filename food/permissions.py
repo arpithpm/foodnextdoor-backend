@@ -1,17 +1,17 @@
-from rest_framework import permissions
+from rest_framework import permissions, exceptions
 from .models import Chef
+from .permutils import isChef
 
 class IsChefOrReadOnly(permissions.BasePermission):
     """Cuisine or FoodCategory can be added by the chef but can be read by anyone"""    
     def has_permission(self, request, view):
-        try:
-            if request.method in permissions.SAFE_METHODS:
-                return True
-            chef = Chef.objects.get(user=request.user)
-            if chef.id:
-                return True
-        except Chef.DoesNotExist:
-            return False
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if request.user and request.user.is_authenticated:
+            return isChef(request)
+        raise exceptions.NotAuthenticated
+
+
 
 
 # class IsSelf(permissions.BasePermission):

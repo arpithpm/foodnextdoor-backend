@@ -6,5 +6,6 @@ urlpatterns = [
     path('cuisine/', views.CuisineListCreateView.as_view()),
     path('food-category/', views.FoodCategoryListCreateView.as_view()),
     path('chefs/', views.ChefListView.as_view()),
+    path('payment-methods/', views.PaymentMethodSupportedCreateView.as_view()),
 
 ]

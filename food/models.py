@@ -35,6 +35,17 @@ class Chef(ActivatorModel, TimeStampedModel):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
+class PaymentMethodSupported(models.Model):
+    cash_on_pickup = models.BooleanField(default=False)
+    cash_on_delivery = models.BooleanField(default=False)
+    chef = models.OneToOneField(Chef, on_delete=models.PROTECT, related_name="payment_methods")
+
+    def __str__(self):
+        return self.chef.user.username
+
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
+
 
 class Cuisine(ActivatorModel, TimeStampedModel):
     name = models.CharField(max_length=40, null=False, blank=False, default="", unique=True)
