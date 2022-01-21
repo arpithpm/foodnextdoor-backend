@@ -24,4 +24,5 @@ class ChefSerializer(serializers.ModelSerializer):
 class PaymentMethodSupportedSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethodSupported
-        fields = ["cash_on_pickup", "cash_on_delivery"]
+        exclude = ["chef"]
+        # fields = ["cash_on_pickup", "cash_on_delivery", "id"]

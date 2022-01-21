@@ -1,8 +1,6 @@
-from rest_framework import generics
-from rest_framework import permissions
+from rest_framework import generics, viewsets, permissions, serializers
 from rest_framework.generics import get_object_or_404
 from django.db import IntegrityError
-from rest_framework import serializers
 
 from .serializers import *
 from .permissions import IsChefOrReadOnly
@@ -31,9 +29,15 @@ class ChefListView(generics.ListAPIView):
     queryset = Chef.objects.active()
 
 
-class PaymentMethodSupportedCreateView(generics.CreateAPIView):
+class PaymentMethodSupportedView(viewsets.ModelViewSet):
     serializer_class = PaymentMethodSupportedSerializer
     permission_classes = [IsChefOrReadOnly]
+
+    def list(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def get_object(self):
+        return get_object_or_404(PaymentMethodSupported, chef__user=self.request.user)
 
     def perform_create(self, serializer):
         chef = get_object_or_404(Chef, user=self.request.user)
@@ -42,12 +46,5 @@ class PaymentMethodSupportedCreateView(generics.CreateAPIView):
         except IntegrityError:
             raise serializers.ValidationError("You have already added payment method.")
 
-
-# class PaymentMethodSupported(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = PaymentMethodSupportedSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = PaymentMethodSupported.objects.all()
-
-#     def get_object(self):
-#         chef = get_object_or_404(Chef, user=self.request.user)
-#         return get_object_or_404(PaymentMethodSupported, chef=chef)
+    def get_queryset(self):
+        return get_object_or_404(PaymentMethodSupported, chef__user=self.request.user)
